@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import ClubList from './pages/ClubList';
+import ClubDetails from './pages/ClubDetails';
 import About from './pages/About';
 import './styles/main.scss';
 
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clubs" element={<ClubList />} />
+            <Route path="/clubs/:id" element={<ClubDetails />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </main>
