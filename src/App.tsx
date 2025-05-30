@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ClubList from './pages/ClubList';
 import ClubDetails from './pages/ClubDetails';
 import About from './pages/About';
+import Login from './pages/Login';
 import './styles/main.scss';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/clubs" element={<ClubList />} />
             <Route path="/clubs/:id" element={<ClubDetails />} />
             <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </main>
       </div>

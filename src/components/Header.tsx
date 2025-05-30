@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthButton from './AuthButton';
 
 function Header() {
   return (
@@ -12,8 +11,7 @@ function Header() {
             <Link to="/">Home</Link>
             <Link to="/clubs">Clubs</Link>
             <Link to="/about">About</Link>
-            <Link to="/favorites">Favorites</Link>
-            <AuthButton />
+            <Link to="/login">Login</Link>
           </div>
         </nav>
       </div>
