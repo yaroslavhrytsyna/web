@@ -70,7 +70,7 @@ function Home() {
   };
 
   const heroStyle = {
-    border: "2px solid #93c5fd",
+    border: "6px solid #93c5fd",
     borderRadius: "12px",
     padding: "40px",
     backgroundColor: "#eff6ff",

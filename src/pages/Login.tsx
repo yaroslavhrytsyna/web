@@ -6,6 +6,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isRegister, setIsRegister] = useState(false); // режим: вхід або реєстрація
 
   const navigate = useNavigate();
 
@@ -21,15 +22,23 @@ function LoginPage() {
     setLoading(true);
 
     setTimeout(() => {
-      if (username === "admin" && password === "1234") {
-        localStorage.setItem("access_token", "dummy-access-token");
-        localStorage.setItem("refresh_token", "dummy-refresh-token");
-        navigate("/"); // або "/" якщо нема dashboard
+      if (isRegister) {
+        localStorage.setItem("registeredUser", JSON.stringify({ username, password }));
+        alert("Реєстрація успішна! Тепер увійдіть.");
+        setIsRegister(false);
       } else {
-        setError("Невірне ім’я користувача або пароль.");
+        const savedUser = JSON.parse(localStorage.getItem("registeredUser"));
+        if (savedUser && savedUser.username === username && savedUser.password === password) {
+          localStorage.setItem("access_token", "dummy-access-token");
+          localStorage.setItem("refresh_token", "dummy-refresh-token");
+          navigate("/");
+        } else {
+          setError("Невірне ім’я користувача або пароль.");
+        }
       }
+
       setLoading(false);
-    }, 1000); // симуляція затримки
+    }, 1000);
   };
 
   return (
@@ -58,7 +67,9 @@ function LoginPage() {
           fontSize: "1.75rem",
           fontWeight: "700",
           marginBottom: "24px",
-        }}>Увійти до акаунту</h2>
+        }}>
+          {isRegister ? "Реєстрація" : "Увійти до акаунту"}
+        </h2>
 
         {error && (
           <div style={{ color: "red", marginBottom: "16px", textAlign: "center" }}>
@@ -114,8 +125,31 @@ function LoginPage() {
             cursor: loading ? "not-allowed" : "pointer",
           }}
         >
-          {loading ? "Завантаження..." : "Увійти"}
+          {loading
+            ? "Завантаження..."
+            : isRegister ? "Зареєструватися" : "Увійти"}
         </button>
+
+        <p style={{ marginTop: "16px", textAlign: "center" }}>
+          {isRegister
+            ? "Вже маєте акаунт?"
+            : "Немає акаунту?"}{" "}
+          <button
+            type="button"
+            onClick={() => setIsRegister(!isRegister)}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#2563eb",
+              textDecoration: "underline",
+              cursor: "pointer",
+              fontSize: "1rem",
+              padding: 0,
+            }}
+          >
+            {isRegister ? "Увійти" : "Зареєструватися"}
+          </button>
+        </p>
       </form>
     </div>
   );
